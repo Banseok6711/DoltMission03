@@ -6,10 +6,12 @@ import android.support.v7.app.ActionBarActivity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Toast;
 
 
 public class MenuActivity extends ActionBarActivity {
 
+    private static final int REQUEST_CODE=200;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -19,43 +21,44 @@ public class MenuActivity extends ActionBarActivity {
 
     public void onButtonClicked(View v){
 
-//        String message="";
-//          String activityString="";
         Intent intent = null;
         switch (v.getId()){
             case R.id.button2:
-//                activityString="ClientManageActivity.class";
                 intent=new Intent(this,ClientManageActivity.class);
+                startActivityForResult(intent, REQUEST_CODE);
                 break;
-          /*      message=((Button)findViewById(R.id.button2)).getText().toString();
-                break;*/
             case R.id.button3:
-//                activityString="ProfitManageActivity.class";
                 intent=new Intent(this,ProfitManageActivity.class);
+                startActivityForResult(intent, REQUEST_CODE);
                 break;
-                /*message=((Button)findViewById(R.id.button3)).getText().toString();
-                break;*/
             case R.id.button4:
-//                activityString="ProductManageActivity.class";
                 intent=new Intent(this,ProductManageActivity.class);
+                startActivityForResult(intent, REQUEST_CODE);
                 break;
-                /*message=((Button)findViewById(R.id.button4)).getText().toString();
-                break;*/
             case R.id.button_Login:
+                intent = new Intent(this,MainActivity.class);
+                intent.putExtra("MenuMessage","Called From Menu");
+                setResult(1,intent);
                 finish();
         }
-
-//        Intent intent = new Intent(this,activityString.getClass());
-        startActivity(intent);
-
-
-        /*
-        Intent intent = new Intent(this,MainActivity.class);
-        intent.putExtra("MenuMessage",message);
-        setResult(1,intent);
-        finish();
-        */
     }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        if(requestCode == REQUEST_CODE){
+            if(resultCode == 1){
+                String message= data.getStringExtra("message");
+                Toast.makeText(getApplicationContext(),message,Toast.LENGTH_LONG).show();
+            }
+
+        }
+
+    }
+
+
+
 
 
     @Override

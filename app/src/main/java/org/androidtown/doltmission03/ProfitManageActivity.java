@@ -1,9 +1,11 @@
 package org.androidtown.doltmission03;
 
-import android.support.v7.app.ActionBarActivity;
+import android.content.Intent;
 import android.os.Bundle;
+import android.support.v7.app.ActionBarActivity;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 
 
 public class ProfitManageActivity extends ActionBarActivity {
@@ -14,6 +16,20 @@ public class ProfitManageActivity extends ActionBarActivity {
         setContentView(R.layout.activity_profit_manage);
     }
 
+
+    public void onButtonClicked(View v){
+        switch(v.getId()){
+            case R.id.menu:
+                Intent intent = new Intent(this,MenuActivity.class);
+                intent.putExtra("message","Called From Profit Manage");
+                setResult(1,intent);
+                finish();
+                break;
+            case R.id.close:
+                finish();
+                break;
+        }
+    }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {

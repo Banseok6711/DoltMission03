@@ -6,6 +6,8 @@ import android.support.v7.app.ActionBarActivity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.EditText;
+import android.widget.Toast;
 
 
 public class MainActivity extends ActionBarActivity {
@@ -18,19 +20,30 @@ public class MainActivity extends ActionBarActivity {
     }
 
     public void onButtonClicked(View v){
-        Intent intent = new Intent(this,MenuActivity.class);
-        startActivity(intent);
-//        startActivityForResult(intent, REQUEST_CODE);
+
+        EditText id = (EditText)findViewById(R.id.editText_Id);
+        EditText pw = (EditText)findViewById(R.id.editText_Pw);
+
+        //ID,PW 입력이 둘다 되있을 경우
+        if(id.length()== 0) {
+            Toast.makeText(getApplicationContext(),"ID를 입력하세요",Toast.LENGTH_SHORT).show();
+        }
+        else if(pw.length() == 0){
+            Toast.makeText(getApplicationContext(),"Password를 입력하세요",Toast.LENGTH_SHORT).show();
+        }else{
+            Intent intent = new Intent(this,MenuActivity.class);
+            startActivityForResult(intent, REQUEST_CODE);
+        }
+
     }
 
-/*
+
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
 
         if(requestCode == REQUEST_CODE){
-            Toast.makeText(getApplicationContext(),"리절트 코드 일치",Toast.LENGTH_LONG).show();
 
             if(resultCode == 1){
                 String message=data.getStringExtra("MenuMessage");
@@ -42,7 +55,7 @@ public class MainActivity extends ActionBarActivity {
 
     }
 
-*/
+
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
